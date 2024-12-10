@@ -11,4 +11,6 @@
   * '$ conda remove  -n fastapi_env --all'
 * ライブラリのインストール
   * '$ pip install fastapi'
-
+* vscode
+  * インタプリタをPython 3.12.7('fastapi_env')を選択
+  * main.py　を右クリック　ターミナルで実行ができる
