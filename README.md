@@ -10,7 +10,69 @@
   * '$ conda deactivate'
   * '$ conda remove  -n fastapi_env --all'
 * ライブラリのインストール
-  * '$ pip install fastapi'
+  * FastAPI
+    * '$ pip install fastapi'
+    * アプリケーションフレームワーク
+  * Uvicorn
+    * '$ pip install uvicorn'
+    * ASGI
+    * Webサーバー 
 * vscode
   * インタプリタをPython 3.12.7('fastapi_env')を選択
   * main.py　を右クリック　ターミナルで実行ができる
+* webサーバーの起動
+  * 'uvicorn main:app --reload'
+  * 'curl http://127.0.0.1:8000'
+  * 'open http://127.0.0.1:8000/docs'
+
+## 学習メモ
+### デコレータ
+@app.get("/") みたいなやつ
+
+### 型ヒント(type hints)
+Python3.5以降の機能
+
+Python3.8以前とPython3.9からでリストや辞書などの標準コレクションの型ヒント指定方法が変わっている
+3.8以前はtypingモジュールを使用する必要があったが3.9からは不要
+
+```python
+def add(num1: int, num2: int) -> str:
+    results: str = '足し算結果=>'
+    return results + str(num1 + num2) 
+```
+
+#### Optional型
+変数が特定の型を持つかNoneを持つ可能性がある場合に使用
+3.5から導入
+
+```python
+from typing import Optional
+def hoge(param: Optional[int] = None) -> Optional[int]:
+```
+
+#### Annotated
+3.9以降で導入
+型ヒントに追加情報や制約を加える
+これだけだと開発者が気をつけるための情報という風に見えるが、ツールやライブラリを連携させて強力なチェックをしたりもできる?(プログラムの実行に影響を与えないのでは？？？) FastAPIの機能と連携できるらしい
+
+```python
+from typing import Annotated
+def hoge(email: Annotated[str, "有効なメールアドレスの必要がある"]):
+```
+
+#### |(パイプ)演算子
+3.10から
+2つの型のいずれか
+
+```python
+def hoge(param: str | None) -> str:
+```
+
+'Optinal[str] = None'と 'str | None = None'は同じ
+versionが3.10以上なら後者を採用するのがよさそう
+
+### 型判定
+```python
+if isinstance(value, int):
+  return f"値はint型です ${value}"
+```
