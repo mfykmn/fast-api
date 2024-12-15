@@ -17,6 +17,9 @@
     * '$ pip install uvicorn'
     * ASGI
     * Webサーバー 
+  * Pydantic
+    * '$ pip install pydantic'
+    * データの変換とバリデーション
 * vscode
   * インタプリタをPython 3.12.7('fastapi_env')を選択
   * main.py　を右クリック　ターミナルで実行ができる
@@ -83,4 +86,10 @@ return [{
   "id": book.id
   "title": book.title
 } for book in result]
+```
+
+#### 辞書のアンパック
+```python
+data = {"id": 1, "name": "hogehoge"}
+event = Event(**data) // **で展開できる
 ```
