@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from data import get_user, User
 from pydantic import ValidationError
+from book_schemas import BookResponseSchema, BookSchema
 
 app = FastAPI()
 
@@ -18,6 +19,23 @@ async def read_user(user_id: int) -> dict:
     except ValidationError as e: # 実際は起きないpost作ったらそこに移す
         raise HTTPException(status_code=400, detail="Validation error")
 
+books: list[BookResponseSchema] = [
+    BookResponseSchema(id=1, title="hoge", category="comics"),
+    BookResponseSchema(id=2, title="fuga", category="comics"),
+    BookResponseSchema(id=3, title="pika", category="magazine"),
+    BookResponseSchema(id=4, title="chu", category="magazine"),
+    
+]
+
 @app.get("/books/")
 async def get_books(category: str|None = None) -> dict:
     return {"book_id": 1, "category": category}
+
+@app.post("/books/", response_model=BookResponseSchema)
+async def post_books(book: BookSchema):
+    '''書籍登録
+    '''
+    new_book_id = max([book.id for book in books], default=0) + 1
+    new_book = BookResponseSchema(id=new_book_id, **book.model_dump())
+    books.append(new_book)
+    return new_book
