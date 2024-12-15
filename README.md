@@ -76,3 +76,11 @@ versionが3.10以上なら後者を採用するのがよさそう
 if isinstance(value, int):
   return f"値はint型です ${value}"
 ```
+
+### dict
+```python
+return [{
+  "id": book.id
+  "title": book.title
+} for book in result]
+```
