@@ -1,4 +1,12 @@
 # fast-api
+## 構成
+```bash
+.
+├── routers
+│     * APIエンドポイントをパスとハンドラーの組み合わせで定義する
+└── schemas
+      * APIのリクエストとレスポンスを、厳密な型と一緒に定義する
+```
 
 ## 環境構築
 * miniconda インストール
@@ -102,3 +110,11 @@ enumerateはリストなどの反復可能なオブジェクトをループす�
 ```python
 for index, existing_book in enumerate(books)
 ```
+
+### 非同期
+asyncio を使う
+#### async with
+python 3.5 から使える
+https://peps.python.org/pep-0492/#asynchronous-context-managers-and-async-with
+https://stackoverflow.com/questions/67092070/why-do-we-need-async-for-and-async-with
+
