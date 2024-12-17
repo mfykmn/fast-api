@@ -2,10 +2,12 @@ from fastapi import FastAPI, HTTPException
 from data import get_user, User
 from pydantic import ValidationError
 from book_schemas import BookResponseSchema, BookSchema
+import asyncio
+import httpx
 
 app = FastAPI()
 
-@app.get("/users/{user_id}", tags=["Users"])
+@app.get("/users/{user_id}", response_model=list[User], tags=["Users"])
 async def read_user(user_id: int) -> dict:
     try:
         user: User|None = get_user(user_id)
@@ -68,3 +70,20 @@ async def delete_book(book_id: int):
             book.pop(index)
             return book
     raise HTTPException(status_code=404, detail="Book not found")
+
+
+@app.get("/address/", tags=["Address"])
+async def get_address():
+    zip_codes = [
+        "0600000", # 北海道
+        "1000001", # 東京
+        "9000000", # 沖縄
+    ]
+    return await asyncio.gather(*(fetch_address(zip_code) for zip_code in zip_codes))
+
+async def fetch_address(zip_code: str):
+    async with httpx.AsyncClient() as client:
+        url = "https://zipcloud.ibsnet.co.jp/api/search"
+        param = {"zipcode": zip_code}
+        response = await client.get(url, params=param)
+        return response.json()

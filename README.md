@@ -20,6 +20,9 @@
   * Pydantic
     * '$ pip install pydantic'
     * データの変換とバリデーション
+  * httpx
+    * '$ pip install httpx'
+    * 外部APIなどにHTTPリクエストを送るための非同期対応ライブラリ
 * vscode
   * インタプリタをPython 3.12.7('fastapi_env')を選択
   * main.py　を右クリック　ターミナルで実行ができる
