@@ -5,11 +5,7 @@ from book_schemas import BookResponseSchema, BookSchema
 
 app = FastAPI()
 
-@app.get("/")
-async def get_hello():
-    return {"message": "Hello World"}
-
-@app.get("/users/{user_id}")
+@app.get("/users/{user_id}", tags=["Users"])
 async def read_user(user_id: int) -> dict:
     try:
         user: User|None = get_user(user_id)
@@ -27,15 +23,48 @@ books: list[BookResponseSchema] = [
     
 ]
 
-@app.get("/books/")
-async def get_books(category: str|None = None) -> dict:
-    return {"book_id": 1, "category": category}
+@app.get("/books/", response_model=list[BookResponseSchema], tags=["Books"])
+async def get_books():
+    '''書籍一覧取得
+    '''
+    return books
 
-@app.post("/books/", response_model=BookResponseSchema)
-async def post_books(book: BookSchema):
+@app.get("/books/{book_id}", response_model=BookResponseSchema, tags=["Books"])
+async def get_book(book_id: int):
+    '''書籍取得
+    '''
+    for book in books:
+        if book.id == book_id:
+            return book
+    raise HTTPException(status_code=404, detail="Book not found") 
+
+@app.post("/books/", response_model=BookResponseSchema, tags=["Books"])
+async def post_book(book: BookSchema):
     '''書籍登録
     '''
     new_book_id = max([book.id for book in books], default=0) + 1
     new_book = BookResponseSchema(id=new_book_id, **book.model_dump())
     books.append(new_book)
     return new_book
+
+@app.put("/books/{book_id}", response_model=BookResponseSchema, tags=["Books"])
+async def put_book(book_id: int, book: BookSchema):
+    '''書籍更新
+    '''
+    for index, existing_book in enumerate(books):
+        if existing_book.id == book_id:
+            updated_book = BookResponseSchema(id=book_id, **book.model_dump())
+            books[index] = updated_book
+            return updated_book
+            
+    raise HTTPException(status_code=404, detail="Book not found")
+
+@app.delete("/books/{book_id}", response_model=BookResponseSchema, tags=["Books"])
+async def delete_book(book_id: int):
+    '''書籍削除
+    '''
+    for index, book in enumerate(books):
+        if book.id == book_id:
+            book.pop(index)
+            return book
+    raise HTTPException(status_code=404, detail="Book not found")

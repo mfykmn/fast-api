@@ -93,3 +93,9 @@ return [{
 data = {"id": 1, "name": "hogehoge"}
 event = Event(**data) // **で展開できる
 ```
+
+### enumerate
+enumerateはリストなどの反復可能なオブジェクトをループする際に、現在のindexと要素の両方を取得できる
+```python
+for index, existing_book in enumerate(books)
+```
