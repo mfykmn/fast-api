@@ -17,38 +17,33 @@
   * `$ conda activate fastapi_env`
   * `$ conda deactivate`
   * `$ conda remove  -n fastapi_env --all`
-* ライブラリのインストール
-  * FastAPI
-    * `$ pip install fastapi`
-    * アプリケーションフレームワーク
-  * Uvicorn
-    * `$ pip install uvicorn`
-    * ASGI
-    * Webサーバー 
-  * Pydantic
-    * `$ pip install pydantic`
-    * データの変換とバリデーション
-  * httpx
-    * `$ pip install httpx`
-    * 外部APIなどにHTTPリクエストを送るための非同期対応ライブラリ
-  * SQLAlchemy
-    * `$ pip install sqlalchemy`
-    * ORM
-  * aiosqlite
-    * `$ pip install aiosqlite`
-    * `$ pip install greenlet` も必要だった
-    * SQLiteデータベースを非同期IOで利用するためのライブラリ
-
-
 * vscode
   * インタプリタをPython 3.12.7('fastapi_env')を選択
   * main.py　を右クリック　ターミナルで実行ができる
 * webサーバーの起動
-  * `uvicorn main:app --reload`
-  * `curl http://127.0.0.1:8000`
-  * `open http://127.0.0.1:8000/docs`
+    ```bash
+    $ pip install -r requirements.txt
+    $ uvicorn main:app --reload
+    $ curl http://127.0.0.1:8000
+    $ open http://127.0.0.1:8000/docs
+    ```
 
 ## 学習メモ
+### ライブラリ
+* FastAPI
+  * アプリケーションフレームワーク
+* Uvicorn
+  * ASGI
+  * Webサーバー 
+* Pydantic
+  * データの変換とバリデーション
+* httpx
+  * 外部APIなどにHTTPリクエストを送るための非同期対応ライブラリ
+* SQLAlchemy
+  * ORM
+* aiosqlite
+  * SQLiteデータベースを非同期IOで利用するためのライブラリ
+
 ### デコレータ
 @app.get("/") みたいなやつ
 
