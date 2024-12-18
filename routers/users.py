@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from schemas.user import UserResponseSchema
 from pydantic import ValidationError
+from infrastructure.user import add_user, get_users
 
 router = APIRouter()
 
@@ -12,6 +13,13 @@ user_list = [
 
 @router.get("/users/{user_id}", response_model=list[UserResponseSchema], tags=["Users"])
 async def read_user(user_id: int) -> dict:
+    # TODO: 動作確認用
+    #await add_user("hoge")
+    #await add_user("fuga")
+    #users = await get_users()
+    #print(users)
+    # TODO: 
+    
     try:
         user: UserResponseSchema|None = get_user(user_id)
         if user is None:

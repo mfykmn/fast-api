@@ -34,6 +34,10 @@
   * SQLAlchemy
     * `$ pip install sqlalchemy`
     * ORM
+  * aiosqlite
+    * `$ pip install aiosqlite`
+    * `$ pip install greenlet` も必要だった
+    * SQLiteデータベースを非同期IOで利用するためのライブラリ
 
 
 * vscode
@@ -123,3 +127,5 @@ python 3.5 から使える
 https://peps.python.org/pep-0492/#asynchronous-context-managers-and-async-with
 https://stackoverflow.com/questions/67092070/why-do-we-need-async-for-and-async-with
 
+### DB操作
+`engine.begin()`でトランザクションを開始できる
