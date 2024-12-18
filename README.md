@@ -12,32 +12,37 @@
 * miniconda インストール
   * https://docs.anaconda.com/miniconda/install/#quick-command-line-install
 * 仮想環境構築コマンド
-  * '$ conda env list'
-  * '$ conda create -n fastapi_env python=3.12'
-  * '$ conda activate fastapi_env'
-  * '$ conda deactivate'
-  * '$ conda remove  -n fastapi_env --all'
+  * `$ conda env list`
+  * `$ conda create -n fastapi_env python=3.12`
+  * `$ conda activate fastapi_env`
+  * `$ conda deactivate`
+  * `$ conda remove  -n fastapi_env --all`
 * ライブラリのインストール
   * FastAPI
-    * '$ pip install fastapi'
+    * `$ pip install fastapi`
     * アプリケーションフレームワーク
   * Uvicorn
-    * '$ pip install uvicorn'
+    * `$ pip install uvicorn`
     * ASGI
     * Webサーバー 
   * Pydantic
-    * '$ pip install pydantic'
+    * `$ pip install pydantic`
     * データの変換とバリデーション
   * httpx
-    * '$ pip install httpx'
+    * `$ pip install httpx`
     * 外部APIなどにHTTPリクエストを送るための非同期対応ライブラリ
+  * SQLAlchemy
+    * `$ pip install sqlalchemy`
+    * ORM
+
+
 * vscode
   * インタプリタをPython 3.12.7('fastapi_env')を選択
   * main.py　を右クリック　ターミナルで実行ができる
 * webサーバーの起動
-  * 'uvicorn main:app --reload'
-  * 'curl http://127.0.0.1:8000'
-  * 'open http://127.0.0.1:8000/docs'
+  * `uvicorn main:app --reload`
+  * `curl http://127.0.0.1:8000`
+  * `open http://127.0.0.1:8000/docs`
 
 ## 学習メモ
 ### デコレータ
