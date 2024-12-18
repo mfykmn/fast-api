@@ -13,3 +13,9 @@ async def get_users():
         result = await session.execute(select(User))
         users = result.scalars().all()
         return users
+
+async def get_user_by_id(user_id: int):
+    async with async_session() as session:
+        result = await session.execute(select(User).filter(User.id == user_id))
+        user = result.scalars().first()
+        return user
