@@ -2,9 +2,9 @@ from fastapi import APIRouter
 import asyncio
 import httpx
 
-router = APIRouter()
+router = APIRouter(tags=["Addresses"], prefix="/addresses")
 
-@router.get("/addresses/", tags=["Addresses"])
+@router.get("/")
 async def get_address():
     zip_codes = [
         "0600000", # 北海道

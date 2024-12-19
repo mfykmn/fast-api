@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from schemas.book import BookResponseSchema, BookSchema
 
-router = APIRouter()
+router = APIRouter(tags=["Books"], prefix="/books")
 
 books: list[BookResponseSchema] = [
     BookResponseSchema(id=1, title="hoge", category="comics"),
@@ -10,13 +10,13 @@ books: list[BookResponseSchema] = [
     BookResponseSchema(id=4, title="chu", category="magazine"),   
 ]
 
-@router.get("/books/", response_model=list[BookResponseSchema], tags=["Books"])
+@router.get("/", response_model=list[BookResponseSchema])
 async def get_books():
     '''書籍一覧取得
     '''
     return books
 
-@router.get("/books/{book_id}", response_model=BookResponseSchema, tags=["Books"])
+@router.get("/{book_id}", response_model=BookResponseSchema)
 async def get_book(book_id: int):
     '''書籍取得
     '''
@@ -25,7 +25,7 @@ async def get_book(book_id: int):
             return book
     raise HTTPException(status_code=404, detail="Book not found") 
 
-@router.post("/books/", response_model=BookResponseSchema, tags=["Books"])
+@router.post("/", response_model=BookResponseSchema)
 async def post_book(book: BookSchema):
     '''書籍登録
     '''
@@ -34,7 +34,7 @@ async def post_book(book: BookSchema):
     books.append(new_book)
     return new_book
 
-@router.put("/books/{book_id}", response_model=BookResponseSchema, tags=["Books"])
+@router.put("/{book_id}", response_model=BookResponseSchema)
 async def put_book(book_id: int, book: BookSchema):
     '''書籍更新
     '''
@@ -46,7 +46,7 @@ async def put_book(book_id: int, book: BookSchema):
             
     raise HTTPException(status_code=404, detail="Book not found")
 
-@router.delete("/books/{book_id}", response_model=BookResponseSchema, tags=["Books"])
+@router.delete("/{book_id}", response_model=BookResponseSchema)
 async def delete_book(book_id: int):
     '''書籍削除
     '''
